@@ -64,8 +64,9 @@ protected:
         // or it is folder
         if (ev->mimeData()->urls().size() == 1)
         {
-            if ((QFileInfo(f.toLocalFile()).isFile() &&
-                 f.fileName().contains(QRegExp("([.][hH][tT][mM][lL]?)$")))
+            QFileInfo fi(f.toLocalFile());
+            if ((fi.isFile() &&
+                 fi.fileName().contains(QRegExp("([.][hH][tT][mM][lL]?)$")))
                     ||
                     QFileInfo(f.toLocalFile()).isDir())
                 ev->acceptProposedAction();

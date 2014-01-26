@@ -23,7 +23,7 @@ void VKHtmlParse::parse()
     QString htmlText = QTextCodec::codecForHtml(htmlData)->toUnicode(htmlData);
 
     HTML::ParserDom parser;
-    tree<HTML::Node> dom = parser.parseTree(htmlText.toStdString());
+    tree<HTML::Node> dom = parser.parseTree(htmlText.toLocal8Bit().data());
 
     // root
     tree<HTML::Node>::iterator end = dom.end();
@@ -44,20 +44,20 @@ void VKHtmlParse::parse()
                 if (checkTag(song,"input","type","hidden"))
                 {
                     s.link = directLink(
-                                QString::fromStdString(song->attribute("value").second));
+                                QString::fromLocal8Bit(song->attribute("value").second.data()));
                 }
                 else if (checkTag(song,"span","class","title"))
                 {
                     // one child for lyrics
                     song += (song.number_of_children() - 1);
                     s.title = fromHtmlEscaped(
-                                QString::fromStdString(tagContent(song_info,song)));
+                                QString::fromLocal8Bit(tagContent(song_info,song).data()));
                 }
                 else if (checkTag(song,"a","onclick"))
                 {
                     // find by 'onclick' attribute, because it used only for artist
                     s.artist = fromHtmlEscaped(
-                                QString::fromStdString(tagContent(song_info,song)));
+                                QString::fromLocal8Bit(tagContent(song_info,song).data()));
                 }
                 song++;
             }

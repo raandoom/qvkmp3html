@@ -24,7 +24,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->checkAll,SIGNAL(clicked(bool)),this,SLOT(checkSongs(bool)));
 
-    ui->audioTable->horizontalHeader()->setSectionResizeMode(Check,QHeaderView::Fixed);
+    ui->audioTable->horizontalHeader()->
+#if QT_VERSION >= 0x050000
+            setSectionResizeMode(Check,QHeaderView::Fixed);
+#else
+            setResizeMode(Check,QHeaderView::Fixed);
+#endif
+
     ui->audioTable->resizeColumnToContents(Check);
 
     ui->start->setDisabled(true);
@@ -39,14 +45,14 @@ MainWindow::~MainWindow()
 void MainWindow::browse()
 {
     QString path = QFileDialog::getOpenFileName(0,
-                                                "Выберите сохраненный HTML файл:",
+                                                "Choose saved HTML file:",
                                             #ifdef Q_OS_WIN
                                                 QDir::rootPath(),
                                             #endif
                                             #ifdef Q_OS_UNIX
                                                 QDir::homePath(),
                                             #endif
-                                                "Веб-страница (*.html *.htm)"
+                                                "Web page (*.html *.htm)"
                                                 );
     if (!path.isEmpty())
     {
@@ -58,7 +64,7 @@ void MainWindow::browse()
 void MainWindow::browseSave()
 {
     QString path = QFileDialog::getExistingDirectory(0,
-                                                     "Выберите папку для сохранения:",
+                                                     "Choose download path:",
                                                  #ifdef Q_OS_WIN
                                                      QDir::rootPath()
                                                  #endif
@@ -132,7 +138,7 @@ void MainWindow::download()
     downloadActive = !downloadActive;
     if (!downloadActive) // if something downloading - stop it
     {
-        ui->start->setText("Загрузить");
+        ui->start->setText("Download");
 
         delete fdl;
         fdl = 0;
@@ -144,7 +150,7 @@ void MainWindow::download()
     }
     else                // if nothing downloading - start it
     {
-        ui->start->setText("Отмена");
+        ui->start->setText("Cancel");
         // find first checked row
         int row = tableFirstCheckedRow(ui->audioTable,Check);
         if (row != -1)
@@ -186,7 +192,7 @@ void MainWindow::downloaded(QUrl link, bool ok, QString err)
     {
         QTableWidgetItem* item = tableItem(ui->audioTable,row,Status);
         if (ok)
-            item->setText("Загружено");
+            item->setText("Downloaded");
         else
             item->setText(err);
     }

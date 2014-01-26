@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>vk_audio</string>
+   <string>qvkmp3html</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -25,7 +25,7 @@
     <item row="0" column="0">
      <widget class="QLabel" name="pathLabel">
       <property name="text">
-       <string>HTML файл:</string>
+       <string>HTML file:</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -56,7 +56,7 @@
     <item row="1" column="0">
      <widget class="QLabel" name="saveLabel">
       <property name="text">
-       <string>Сохранить в:</string>
+       <string>Download path:</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -138,7 +138,7 @@
        </sizepolicy>
       </property>
       <property name="text">
-       <string>Загрузить</string>
+       <string>Download</string>
       </property>
      </widget>
     </item>
@@ -188,7 +188,7 @@
     <item row="2" column="0" colspan="3">
      <widget class="QCheckBox" name="checkAll">
       <property name="text">
-       <string>Отметить все</string>
+       <string>Check all</string>
       </property>
      </widget>
     </item>
@@ -200,7 +200,7 @@
      <x>0</x>
      <y>0</y>
      <width>640</width>
-     <height>21</height>
+     <height>29</height>
     </rect>
    </property>
   </widget>

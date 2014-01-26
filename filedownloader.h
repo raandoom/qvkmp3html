@@ -2,6 +2,7 @@
 #define FILEDOWNLOADER_H
 
 #include <QObject>
+#include <QStringList>
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
 #include <QNetworkReply>

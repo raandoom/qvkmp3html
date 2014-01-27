@@ -50,6 +50,9 @@ void FileDownloader::progressOne(qint64 rcv, qint64 total)
 
 void FileDownloader::finishedOne(QNetworkReply*)
 {
+    // remove file if finished by error
+    if (reply->error() != QNetworkReply::NoError)
+        file.remove();
     emit downloaded(reply->url(),
                     reply->error() == QNetworkReply::NoError,
                     reply->errorString());

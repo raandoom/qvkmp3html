@@ -56,7 +56,13 @@ QString songPath(QString path, QString artist, QString title)
 {
     if (path.isEmpty())
         return path;
-    return QDir::toNativeSeparators(path + "/" + artist + " - " + title + ".mp3");
+    // need to replace windows special characters: \ / : * ? " < > |
+    QRegExp rx("[\\\\/:*\?\"<>|]");
+    return QDir::toNativeSeparators(path + "/" +
+                                    artist.simplified().remove(rx) +
+                                    " - " +
+                                    title.simplified().remove(rx) +
+                                    ".mp3");
 }
 
 bool fileExist(QString path)

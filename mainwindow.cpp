@@ -150,11 +150,11 @@ void MainWindow::download()
     }
     else                // if nothing downloading - start it
     {
-        ui->start->setText("Cancel");
         // find first checked row
         int row = tableFirstCheckedRow(ui->audioTable,Check);
         if (row != -1)
         {
+            ui->start->setText("Cancel");
             ui->pathBrowse->setDisabled(true);
             ui->saveBrowse->setDisabled(true);
             enableCheckboxes(false);

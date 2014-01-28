@@ -33,7 +33,7 @@ QString fromHtmlEscaped(QString t)
 
     QRegExp rx("&#([xX][0-9a-fA-F]+|\\d+);");
     int pos = 0;
-    while ((pos = rx.indexIn(t,pos)) != -1)
+    while ((pos = rx.indexIn(t)) != -1)
     {
         QChar ch;
         if (rx.cap(1).at(0).isDigit())  // if digit - not hex
@@ -41,7 +41,6 @@ QString fromHtmlEscaped(QString t)
         else                            // hex
             ch = QChar(rx.cap(1).mid(1).toInt(0,16));
         t.replace(pos,rx.matchedLength(),ch);
-        pos += rx.matchedLength();
     }
 
     return t;

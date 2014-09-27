@@ -15,8 +15,11 @@ FileDownloader::FileDownloader(QStringList links, QStringList paths, QObject *pa
 FileDownloader::~FileDownloader()
 {
     enabled = false;        // abort downloadNext()
-    reply->abort();
-    reply->deleteLater();
+    if (reply)
+    {
+        reply->abort();
+        reply->deleteLater();
+    }
 
     if (file.isOpen())      // file not closed - this file is not downloaded yet
         file.remove();      // delete this file
@@ -26,7 +29,10 @@ void FileDownloader::downloadNext()
 {
     file.close();
     if (reply)
+    {
         reply->deleteLater();
+        reply = 0;
+    }
 
     if (!l.isEmpty() && !p.isEmpty())   // if not all links downloaded
     {

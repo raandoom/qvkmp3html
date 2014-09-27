@@ -31,8 +31,6 @@ MainWindow::MainWindow(QWidget *parent) :
             setResizeMode(Check,QHeaderView::Fixed);
 #endif
 
-    ui->audioTable->resizeColumnToContents(Check);
-
     ui->start->setDisabled(true);
     connect(ui->start,SIGNAL(clicked()),this,SLOT(download()));
 }
@@ -104,6 +102,8 @@ void MainWindow::addSong(SongStruct s)
     tableItem(ui->audioTable,row,Check)->setCheckState(cs);
     tableItem(ui->audioTable,row,Artist)->setText(s.artist);
     tableItem(ui->audioTable,row,Title)->setText(s.title);
+
+    ui->audioTable->resizeColumnToContents(Check);
 }
 
 void MainWindow::checkSongs(bool state)
@@ -140,7 +140,7 @@ void MainWindow::download()
     {
         ui->start->setText("Download");
 
-        delete fdl;
+        fdl->deleteLater();
         fdl = 0;
 
         ui->pathBrowse->setEnabled(true);
